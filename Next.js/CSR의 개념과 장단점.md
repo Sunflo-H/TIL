@@ -23,7 +23,7 @@
    - 보안에 관한 정보들도 클라이언트로 전달된다.
 
 싱글 페이지 애플리케이션(Single Page Application, SPA)은 말그대로 하나의 페이지를 사용하는 애플리케이션이다. SPA는 서버로부터 새로운 페이지를 가져오는 것이 아닌, 하나의 페이지에서 내용을 동적으로 변경하는 사용자 웹앱을 의미한다. <-> MPA (Multi Page Application)
-\[^1]: https://google.com
+[^1]: https://google.com
 
 # ✅ SSG의 개념과 장단점
 
