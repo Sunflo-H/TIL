@@ -1,6 +1,6 @@
 # ✅ Next.js란?
 
-`웹 어플리케이션을 만들기 위한 React Framework`
+- <b>웹 어플리케이션을 만들기 위한 React Framework</b>
 
 # 🤔 왜 사용하나요?
 
