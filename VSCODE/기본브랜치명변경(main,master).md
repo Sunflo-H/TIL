@@ -13,4 +13,5 @@
 `$ code ~/.gitconfig` 으로 defaultBranch = main 인 것을 확인가능
 
 2. 현재 로컬 저장소의 기본 브랜치명 변경
+
    `git branch -m 현재브랜치명 바꿀브랜치명`
