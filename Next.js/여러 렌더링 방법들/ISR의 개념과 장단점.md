@@ -2,7 +2,7 @@
 
 ## ISR 이란?
 
-> <b>Incremental Static Regeneration </b>
+> <b>Incremental Static Regeneration</b>  
 > 직역 : 증가하는 정적 재생성  
 > 주기적으로 재생성되는 정적 사이트라고 볼 수 있다.  
 > SSG + 주기적으로 렌더링  
