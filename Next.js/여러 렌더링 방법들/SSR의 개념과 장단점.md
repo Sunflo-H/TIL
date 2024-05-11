@@ -1,6 +1,4 @@
-<!-- # SSR의 개념과 장단점 -->
-
-## ✅ SSR의 개념
+## ✅ SSR(Server Side Rendering)이란?
 
 > <b>Server Side Rendering</b>  
 > 직역 : 서버 측에서 렌더링  
