@@ -26,3 +26,4 @@ CSR의 단점을 극복하고, SSR(및 SSG 등 하이브리드 렌더링)을 사
 - SSR, SSG, ISR 등 다양한 기능 제공
 
 - 풀스택 개발 가능
+  ![alt text](image.png)
