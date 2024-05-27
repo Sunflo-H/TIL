@@ -10,8 +10,8 @@ const queryClient = useQueryClient();
 
 ```js
 const somethingQuery = useQuery({
-    queryKey: ["something", 추가구분값들...],
-    queryFn: 비동기처리콜백(),
+    queryKey: [메인 구분값, 추가구분값들...],
+    queryFn: 비동기처리함수,
     staleTime: 60*1000//갱신시간
 })
 ```
