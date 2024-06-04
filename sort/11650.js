@@ -16,7 +16,7 @@ const input = fs.readFileSync("../input.txt").toString().trim().split("\n");
 
 const N = Number(input.shift());
 console.log(input);
-const xy = input.filter((v, i) => i >= 0).map((v) => v.split(" "));
+const xy = input.map((v) => v.split(" "));
 
 // const input = require("fs")
 //   .readFileSync("../input.txt")
