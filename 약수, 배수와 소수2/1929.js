@@ -14,18 +14,24 @@ const input = require("fs")
   .split(" ");
 
 let arr = input.map(Number);
-let answer = [];
+let primes = [];
 
-function isPrime(num) {
-  if (num < 2) return false;
-
-  for (let i = 2; i < num / 2; i++) {
-    if (num % i === 0) return false;
+function eratos(n) {
+  let arr = Array(n + 1)
+    .fill(true)
+    .fill(false, 0, 2);
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (arr[i]) {
+      for (let j = i * i; j <= n; j += i) {
+        arr[j] = false;
+      }
+    }
   }
-  return true;
+  return arr;
 }
 
-for (let i = arr[0]; i < arr[1] + 1; i++) {
-  isPrime(i) && answer.push(i);
-}
+eratos(arr[1]).forEach((item, index) => {
+  if (item) primes.push(index);
+});
+let answer = primes.filter((prime) => prime >= arr[0]);
 console.log(answer.join("\n"));
