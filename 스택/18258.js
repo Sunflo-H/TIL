@@ -15,9 +15,11 @@
 // 출력
 // 출력해야하는 명령이 주어질 때마다, 한 줄에 하나씩 출력한다.
 
+// 시간초과 때문에 큐를 클래스로 만들었다.
+
 const fs = require("fs");
 const [N, ...inputs] = fs
-  .readFileSync("/dev/stdin")
+  .readFileSync("input.txt")
   .toString()
   .trim()
   .split("\n");
@@ -38,15 +40,20 @@ class Queue {
 
   push(value) {
     const node = new Node(value);
+    // head에 값이 없으면
     if (!this.head) {
-      this.head = node;
-      this.head.next = this.tail;
+      this.head = node; // head에 node 저장
+      this.head.next = this.tail; // head 다음은 tail 저장
     } else {
+      // head에 값이 있으면 tail 다음에 node 저장
       this.tail.next = node;
     }
-
     this.tail = node;
     this.size += 1;
+    console.log("node :", node);
+    console.log("head :", this.head);
+    console.log("tail :", this.tail);
+    console.log("size :", this.size);
   }
 
   front() {
@@ -113,4 +120,4 @@ for (let i = 0; i < N; i++) {
   }
 }
 
-console.log(result.split("").join(""));
+// console.log(result.split("").join(""));
