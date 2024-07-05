@@ -25,30 +25,102 @@ const input = require("fs")
   .split("\n");
 
 const N = input.shift();
-const answer = [];
 
-const stack = [];
-input.forEach((strCommand) => {
-  const [command, num] = strCommand.split(" ").map(Number);
+const answer = [];
+// * 풀이1 그냥 조건문으로 구현 (성공, 스택은 이렇게 해도 시간초과가 발생하지 않았다.)
+// const stack = [];
+// input.forEach((strCommand) => {
+//   const [command, num] = strCommand.split(" ").map(Number);
+
+//   switch (command) {
+//     case 1:
+//       stack.push(num);
+//       break;
+//     case 2:
+//       stack.length !== 0 ? answer.push(stack.pop()) : answer.push(-1); // 정수를 빼고 뺀거를 출력해
+//       break;
+//     case 3:
+//       answer.push(stack.length);
+//       break;
+//     case 4:
+//       stack.length === 0 ? answer.push(1) : answer.push(0);
+//       break;
+//     case 5:
+//       stack.length !== 0
+//         ? answer.push(stack[stack.length - 1])
+//         : answer.push(-1);
+//       break;
+//   }
+// });
+// console.log(answer.join("\n"));
+
+// * 풀이 2 class로 스택 구현
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+
+class Stack {
+  constructor() {
+    this.top = null;
+    this.size = 0;
+  }
+
+  push(data) {
+    const newNode = new Node(data);
+    newNode.next = this.top;
+    this.top = newNode;
+    this.size++;
+  }
+
+  pop() {
+    if (this.top) {
+      const popData = this.top; // 반환하기 위한 변수
+      this.top = this.top.next;
+      this.size--;
+      return popData.data; // pop은 값을 반환한다.
+    } else {
+      return -1;
+    }
+  }
+
+  peek() {
+    return this.top === null ? -1 : this.top.data;
+  }
+
+  isEmpty() {
+    return this.top === null ? 1 : 0;
+  }
+
+  getSize() {
+    return this.size;
+  }
+}
+
+const stack = new Stack();
+input.forEach((str) => {
+  const [command, num] = str.split(" ").map(Number);
 
   switch (command) {
     case 1:
       stack.push(num);
       break;
     case 2:
-      stack.length !== 0 ? answer.push(stack.pop()) : answer.push(-1); // 정수를 빼고 뺀거를 출력해
+      answer.push(stack.pop());
       break;
     case 3:
-      answer.push(stack.length);
+      answer.push(stack.getSize());
       break;
     case 4:
-      stack.length === 0 ? answer.push(1) : answer.push(0);
+      answer.push(stack.isEmpty());
       break;
     case 5:
-      stack.length !== 0
-        ? answer.push(stack[stack.length - 1])
-        : answer.push(-1);
+      answer.push(stack.peek());
       break;
   }
 });
+
 console.log(answer.join("\n"));
