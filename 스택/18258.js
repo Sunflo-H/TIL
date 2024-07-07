@@ -15,7 +15,7 @@
 // 출력
 // 출력해야하는 명령이 주어질 때마다, 한 줄에 하나씩 출력한다.
 
-// 시간초과 때문에 큐를 클래스로 만들었다.
+// 시간초과 때문에 큐를 만들었다.
 
 const fs = require("fs");
 const [N, ...inputs] = fs
@@ -24,100 +24,152 @@ const [N, ...inputs] = fs
   .trim()
   .split("\n");
 
+// class Node {
+//   constructor(value) {
+//     this.item = value;
+//     this.next = null;
+//   }
+// }
+
+// class Queue {
+//   constructor() {
+//     this.size = 0;
+//     this.head = null;
+//     this.tail = null;
+//   }
+
+//   push(value) {
+//     const node = new Node(value);
+//     // head에 값이 없으면
+//     if (!this.head) {
+//       this.head = node; // head에 node 저장
+//       this.head.next = this.tail; // head 다음은 tail 저장
+//     } else {
+//       // head에 값이 있으면 tail 다음에 node 저장
+//       this.tail.next = node;
+//     }
+//     this.tail = node;
+//     this.size += 1;
+//     console.log("node :", node);
+//     console.log("head :", this.head);
+//     console.log("tail :", this.tail);
+//     console.log("size :", this.size);
+//   }
+
+//   front() {
+//     return this.head ? this.head.item : -1;
+//   }
+
+//   back() {
+//     return this.tail ? this.tail.item : -1;
+//   }
+
+//   pop() {
+//     if (this.size > 2) {
+//       const item = this.head.item;
+//       const newHead = this.head.next;
+//       this.head = newHead;
+//       this.size -= 1;
+//       return item;
+//     } else if (this.size === 2) {
+//       const item = this.head.item;
+//       const newHead = this.head.next;
+//       this.head = newHead;
+//       this.tail = newHead;
+//       this.size -= 1;
+//       return item;
+//     } else if (this.size === 1) {
+//       const item = this.head.item;
+//       this.head = null;
+//       this.tail = null;
+//       this.size -= 1;
+//       return item;
+//     } else {
+//       return -1;
+//     }
+//   }
+
+//   empty() {
+//     return this.size === 0 ? 1 : 0;
+//   }
+// }
+
+// const queue = new Queue();
+// let result = "";
+// for (let i = 0; i < N; i++) {
+//   let input = inputs[i].split(" ");
+//   switch (input[0]) {
+//     case "push":
+//       queue.push(+input[1]);
+//       break;
+//     case "front":
+//       result += queue.front() + "\n";
+//       break;
+//     case "back":
+//       result += queue.back() + "\n";
+//       break;
+//     case "size":
+//       result += queue.size + "\n";
+//       break;
+//     case "empty":
+//       result += queue.empty() + "\n";
+//       break;
+//     case "pop":
+//       result += queue.pop() + "\n";
+//       break;
+//   }
+// }
+
+// console.log(result.split("").join(""));
+
 class Node {
-  constructor(value) {
-    this.item = value;
+  constructor(data) {
+    this.data = data;
     this.next = null;
   }
 }
 
 class Queue {
   constructor() {
-    this.size = 0;
-    this.head = null;
-    this.tail = null;
+    this.front = null; // head
+    this.rear = null; // tail
   }
 
-  push(value) {
-    const node = new Node(value);
-    // head에 값이 없으면
-    if (!this.head) {
-      this.head = node; // head에 node 저장
-      this.head.next = this.tail; // head 다음은 tail 저장
+  // 큐에 데이터를 추가하는 메서드
+  enqueue(data) {
+    const newNode = new Node(data);
+    if (this.rear === null) {
+      this.front = this.rear = newNode;
     } else {
-      // head에 값이 있으면 tail 다음에 node 저장
-      this.tail.next = node;
-    }
-    this.tail = node;
-    this.size += 1;
-    console.log("node :", node);
-    console.log("head :", this.head);
-    console.log("tail :", this.tail);
-    console.log("size :", this.size);
-  }
-
-  front() {
-    return this.head ? this.head.item : -1;
-  }
-
-  back() {
-    return this.tail ? this.tail.item : -1;
-  }
-
-  pop() {
-    if (this.size > 2) {
-      const item = this.head.item;
-      const newHead = this.head.next;
-      this.head = newHead;
-      this.size -= 1;
-      return item;
-    } else if (this.size === 2) {
-      const item = this.head.item;
-      const newHead = this.head.next;
-      this.head = newHead;
-      this.tail = newHead;
-      this.size -= 1;
-      return item;
-    } else if (this.size === 1) {
-      const item = this.head.item;
-      this.head = null;
-      this.tail = null;
-      this.size -= 1;
-      return item;
-    } else {
-      return -1;
+      this.rear.next = newNode;
+      this.rear = newNode;
     }
   }
 
-  empty() {
-    return this.size === 0 ? 1 : 0;
+  // 큐에서 데이터를 제거하고 반환하는 메서드
+  dequeue() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    const dequeuedNode = this.front;
+    this.front = this.front.next;
+    if (this.front === null) {
+      this.rear = null;
+    }
+    return dequeuedNode.data;
+  }
+
+  // 큐의 최전방 데이터를 반환하는 메서드
+  frontData() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.front.data;
+  }
+
+  // 큐가 비어있는지 확인하는 메서드
+  isEmpty() {
+    return this.front === null ? 1 : 0;
   }
 }
-
 const queue = new Queue();
-let result = "";
-for (let i = 0; i < N; i++) {
-  let input = inputs[i].split(" ");
-  switch (input[0]) {
-    case "push":
-      queue.push(+input[1]);
-      break;
-    case "front":
-      result += queue.front() + "\n";
-      break;
-    case "back":
-      result += queue.back() + "\n";
-      break;
-    case "size":
-      result += queue.size + "\n";
-      break;
-    case "empty":
-      result += queue.empty() + "\n";
-      break;
-    case "pop":
-      result += queue.pop() + "\n";
-      break;
-  }
-}
-
-// console.log(result.split("").join(""));
