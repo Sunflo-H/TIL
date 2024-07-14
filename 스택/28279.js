@@ -33,14 +33,25 @@ class Node {
   }
 }
 
-class LinkedList {
+class Deque {
   constructor() {
     this.head = null;
     this.tail = null;
     this.size = 0;
   }
+  push(v) {
+    const newNode = new Node(v);
+    if (this.head === null) {
+      this.head = this.tail = newNode;
+    } else {
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.size++;
+  }
   // unshift
-  c1(v) {
+  unshift(v) {
     const node = new Node(v);
     if (this.size === 0) {
       this.head = node;
@@ -57,9 +68,11 @@ class LinkedList {
   }
 }
 
-const list = new LinkedList();
+const deque = new Deque();
 
-arr.forEach((str) => {
-  const [command, number] = str.split(" ");
-});
-console.log(answer);
+deque.push(10);
+console.log(deque);
+deque.push(20);
+console.log(deque);
+deque.push(30);
+console.log(deque);
