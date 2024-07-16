@@ -35,44 +35,118 @@ class Node {
 
 class Deque {
   constructor() {
-    this.head = null;
-    this.tail = null;
+    this.front = null;
+    this.rear = null;
     this.size = 0;
   }
-  push(v) {
+
+  // 덱의 앞에 넣는다.
+  unshift(v) {
     const newNode = new Node(v);
-    if (this.head === null) {
-      this.head = this.tail = newNode;
+    if (this.isEmpty()) {
+      this.front = this.rear = newNode;
     } else {
-      newNode.prev = this.tail;
-      this.tail.next = newNode;
-      this.tail = newNode;
+      newNode.next = this.front;
+      this.front.prev = newNode;
+      this.front = newNode;
     }
     this.size++;
   }
-  // unshift
-  unshift(v) {
-    const node = new Node(v);
-    if (this.size === 0) {
-      this.head = node;
-    } else {
-      this.head.prev = node;
-      node.prev = this.head;
+  // 맨 앞의 데이터를 뺀다.
+  shift() {
+    if (this.isEmpty()) {
+      return -1;
     }
-  }
-  // push
-  c2() {}
 
-  c6() {
-    this.head ? answer.push(0) : answer.push(1);
+    const removedNode = this.front;
+    this.front = this.front.next;
+    if (this.front) {
+      this.front.prev = null;
+    } else {
+      this.rear = null;
+    }
+
+    this.size--;
+    return removedNode.value;
+  }
+
+  // 덱의 뒤에 넣는다.
+  push(v) {
+    const newNode = new Node(v);
+    if (this.isEmpty()) {
+      this.front = this.rear = newNode;
+    } else {
+      newNode.prev = this.rear;
+      this.rear.next = newNode;
+      this.rear = newNode;
+    }
+    this.size++;
+  }
+
+  // 맨 뒤의 정수를 뺀다.
+  pop() {
+    if (this.isEmpty()) return -1;
+    const removedNode = this.rear;
+
+    this.rear = this.rear.prev;
+    if (this.rear) {
+      this.rear.next = null;
+    } else {
+      this.front = null;
+    }
+    this.size--;
+    return removedNode.value;
+  }
+
+  peek_front() {
+    if (this.isEmpty()) return -1;
+    return this.front.value;
+  }
+
+  peek_rear() {
+    if (this.isEmpty()) return -1;
+    return this.rear.value;
+  }
+
+  isEmpty() {
+    return this.front === null ? 1 : 0;
+  }
+
+  getSize() {
+    return this.size;
   }
 }
 
 const deque = new Deque();
 
-deque.push(10);
-console.log(deque);
-deque.push(20);
-console.log(deque);
-deque.push(30);
-console.log(deque);
+arr.forEach((str, index) => {
+  const [command, number] = str.split(" ").map(Number);
+
+  switch (command) {
+    case 1:
+      deque.unshift(number);
+      break;
+    case 2:
+      deque.push(number);
+      break;
+    case 3:
+      answer.push(deque.shift());
+      break;
+    case 4:
+      answer.push(deque.pop());
+      break;
+    case 5:
+      answer.push(deque.getSize());
+      break;
+    case 6:
+      answer.push(deque.isEmpty());
+      break;
+    case 7:
+      answer.push(deque.peek_front());
+      break;
+    case 8:
+      answer.push(deque.peek_rear());
+      break;
+  }
+});
+console.log(answer.join("\n"));
